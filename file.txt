@@ -1,0 +1,6 @@
+{
+  "login": 3,
+  "logout": 0,
+  "purchase": 0,
+  "update": 0
+}
