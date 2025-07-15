@@ -6,7 +6,6 @@
   "version": "1.0.0",
   "description": "this for my practise",
   "main": "node.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
