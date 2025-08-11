@@ -5,7 +5,7 @@ import crypto from "crypto";
 import { error, log } from "console";
 import { json } from "stream/consumers";
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 const DATA_FILE = path.join("data", "links.json");
 const serveFile = async (res, path, contenType) => {
   try {
@@ -51,8 +51,8 @@ const server = createServer(async (req, res) => {
         res.writeHead(302, {location : links[shortCode]});
         return res.end();
       }
-      res.writeHead(404, {"conten-Type": "application/json"});
-      res.end(json.stringify({error: "Page not found pls enter a valid link"}));
+      res.writeHead(404, {"conten-Type": "plain/text"});
+      res.end("Page not found pls enter a valid link");
     };
   }
   if (req.method === "POST" && req.url === "/shorten") {
@@ -82,7 +82,7 @@ const server = createServer(async (req, res) => {
         res.end(
           JSON.stringify({
             success: true,
-            shortUrl: `http://localhost:${port}/${finalShortCode}`,
+            shortUrl: `http://localhost:${process.env.RENDER_EXTERNAL_HOSTNAME}/${finalShortCode}`,
             originalUrl: url,
             shortCode: finalShortCode,
           })
@@ -96,6 +96,6 @@ const server = createServer(async (req, res) => {
   }
 });
 
-server.listen(port, () => {
+server.listen(port, '0.0.0.0', () => {
   console.log(`server running at : http://localhost:${port}`);
 });
