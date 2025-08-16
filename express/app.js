@@ -3,10 +3,13 @@ import path from "path";
 
 const app = express();
 
-app.get("/",(req , res)=> {
-    
-    const homePagePath = path.join(import.meta.dirname, "public", "index.html");
-    res.sendFile(homePagePath);
+const staticPath = path.join(import.meta.dirname, "public");
+
+app.use(express.static(staticPath));
+
+app.get("/contact",(req , res)=> {
+   console.log(req.query);
+   res.redirect("/"); 
 });
 
 const PORT = 3000;
