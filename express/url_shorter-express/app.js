@@ -1,5 +1,6 @@
 import express from "express";
 import { shortnerRouter } from "./routes/shortnerURL.routes.js";
+
 const app = express();
 
 app.use(express.static("files"));

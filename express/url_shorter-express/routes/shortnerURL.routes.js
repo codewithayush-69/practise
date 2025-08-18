@@ -1,13 +1,12 @@
 import { readFile, writeFile } from "fs/promises";
 import path from "path";
 import crypto from "crypto";
-import { error } from "console";
+import { error, log } from "console";
 import express from "express";
 
 const router = express.Router();
 
 const DATA_FILE = path.join("data", "links.json");
-
 
 const loadLink = async () => {
   try {
@@ -28,7 +27,7 @@ const saveLink = async (link) => {
 
 router.get("/", async (req, res) => {
   try {
-    const file = await readFile(path.join("view", "index.html"));
+    const file = await readFile(path.join("render", "index.html"));
     const links = await loadLink();
 
     const content = file.toString().replaceAll(
@@ -36,7 +35,11 @@ router.get("/", async (req, res) => {
       Object.entries(links)
         .map(
           ([shortCode, url]) =>
-            `<li><a href="/${shortCode}" target="_blank">${req.host}/${shortCode}</a> - ${url} </li>`
+            `<li><a href="/${shortCode}" target="_blank">${
+              req.host
+            }/${shortCode}</a> - ${
+              url.length > 30 ? `${url.slice(0, 30)}...` : url
+            } </li>`
         )
         .join("")
     );
@@ -81,5 +84,7 @@ router.get("/:shortCode", async (req, res) => {
     return res.status(500).send("Internal server error");
   }
 });
+
+
 
 export const shortnerRouter = router;
