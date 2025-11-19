@@ -1,0 +1,19 @@
+{
+  "name": "mongodb",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "mongo-driver.js",
+  "scripts": {
+    "dev": "node --watch ./mongo-driver.js"
+  },
+  "keywords": [], 
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^6.19.0"
+  },
+  "devDependencies": {
+    "@types/mongodb": "^4.0.6"
+  }
+}
